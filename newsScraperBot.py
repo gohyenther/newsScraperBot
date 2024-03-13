@@ -28,12 +28,13 @@ def scrape_news(company, category):
             elif category == 2:
                 news_results["Topic"].append(company)
             news_results["Title"].append(el.select_one("div.MBeuO").get_text())
+            news_results["Snippet"].append(el.select_one(".GI74Re").get_text())
             news_results["Date"].append(date)
             news_results["Source"].append(el.select_one(".NUnG9d span").get_text())
             news_results["Link"].append(el.find("a")["href"])
 
 # Scrape Contractors News
-news_results = {"Contractor":[], "Title":[], "Date":[], "Source":[], "Link":[]}
+news_results = {"Contractor":[], "Title":[], "Snippet":[], "Date":[], "Source":[], "Link":[]}
 
 watchlist = pd.read_csv("watchlist.csv")['Companies']
 for company in watchlist:
@@ -43,7 +44,7 @@ news_results.to_csv("news_contractors.csv", index=False)
 
 
 # Scrape Topics News
-news_results = {"Topic":[], "Title":[], "Date":[], "Source":[], "Link":[]}
+news_results = {"Topic":[], "Title":[], "Snippet":[], "Date":[], "Source":[], "Link":[]}
 
 topics = pd.read_csv("topics.csv")['Topics']
 for topic in topics:
